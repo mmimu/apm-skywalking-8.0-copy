@@ -1,0 +1,1 @@
+customer-thread-pooling=org.apache.skywalking.jdk.threadpool.relevant.define.ThreadPoolInstrumentation

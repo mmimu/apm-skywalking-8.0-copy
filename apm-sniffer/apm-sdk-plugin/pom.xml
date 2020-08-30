@@ -91,6 +91,7 @@
         <module>finagle-6.25.x-plugin</module>
         <module>mariadb-2.x-plugin</module>
         <module>simple-httpserver-2.x-plugin</module>
+        <module>customer-jdkthreadpool-relevant-plugin</module>
     </modules>
     <packaging>pom</packaging>
 
