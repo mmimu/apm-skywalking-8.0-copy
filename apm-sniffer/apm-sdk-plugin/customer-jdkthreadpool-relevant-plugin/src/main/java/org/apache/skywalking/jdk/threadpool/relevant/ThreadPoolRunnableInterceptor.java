@@ -1,12 +1,10 @@
 package org.apache.skywalking.jdk.threadpool.relevant;
 
 import org.apache.skywalking.apm.agent.core.context.ContextManager;
-import org.apache.skywalking.apm.agent.core.context.ContextSnapshot;
-import org.apache.skywalking.apm.agent.core.context.trace.AbstractSpan;
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.EnhancedInstance;
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.InstanceMethodsAroundInterceptor;
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.MethodInterceptResult;
-import org.apache.skywalking.apm.network.trace.component.ComponentsDefine;
+import org.apache.skywalking.jdk.threadpool.relevant.wrapper.CustomRunnableWrapper;
 
 import java.lang.reflect.Method;
 
@@ -19,25 +17,15 @@ public class ThreadPoolRunnableInterceptor implements InstanceMethodsAroundInter
         if (allArguments == null || allArguments.length != 1) {
             return;
         }
-        Object allArgument = allArguments[0];
-        if (!(allArgument instanceof Runnable)) {
+        Object parameter = allArguments[0];
+        if (!(parameter instanceof Runnable)) {
             return;
         }
-        AbstractSpan span = ContextManager.createLocalSpan(generateOperationName(objInst, method));
-        span.setComponent(ComponentsDefine.JDK_THREADING);
-        final Object storedField = objInst.getSkyWalkingDynamicField();
-        if (storedField != null) {
-            final ContextSnapshot contextSnapshot = (ContextSnapshot) storedField;
-            ContextManager.continued(contextSnapshot);
-        }
+        allArguments[0] = new CustomRunnableWrapper((Runnable) parameter, ContextManager.capture());
     }
 
     @Override
     public Object afterMethod(EnhancedInstance objInst, Method method, Object[] allArguments, Class<?>[] argumentsTypes, Object ret) throws Throwable {
-        final Object storedField = objInst.getSkyWalkingDynamicField();
-        if (storedField != null) {
-            ContextManager.stopSpan();
-        }
         return ret;
     }
 
@@ -48,7 +36,4 @@ public class ThreadPoolRunnableInterceptor implements InstanceMethodsAroundInter
         }
     }
 
-    private String generateOperationName(final EnhancedInstance objInst, final Method method) {
-        return "threadpool/" + objInst.getClass().getName() + "/" + method.getName();
-    }
 }
