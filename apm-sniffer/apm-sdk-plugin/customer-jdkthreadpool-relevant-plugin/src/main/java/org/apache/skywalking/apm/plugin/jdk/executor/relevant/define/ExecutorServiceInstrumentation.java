@@ -11,7 +11,7 @@ import org.apache.skywalking.apm.agent.core.plugin.match.ClassMatch;
 import org.apache.skywalking.apm.agent.core.plugin.match.HierarchyMatch;
 import org.apache.skywalking.apm.agent.core.plugin.match.IndirectMatch;
 import org.apache.skywalking.apm.agent.core.plugin.match.logical.LogicalMatchOperation;
-import org.apache.skywalking.jdk.threadpool.relevant.config.ThreadingConfig;
+import org.apache.skywalking.apm.plugin.jdk.executor.relevant.config.ThreadingConfig;
 
 import java.util.concurrent.Callable;
 

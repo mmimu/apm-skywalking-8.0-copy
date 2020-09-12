@@ -8,7 +8,7 @@ import org.apache.skywalking.apm.agent.core.plugin.interceptor.InstanceMethodsIn
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.ClassInstanceMethodsEnhancePluginDefine;
 import org.apache.skywalking.apm.agent.core.plugin.match.ClassMatch;
 import org.apache.skywalking.apm.agent.core.plugin.match.NameMatch;
-import org.apache.skywalking.apm.plugin.jdk.executor.relevant.RunnableOrCallableWrapper;
+import org.apache.skywalking.apm.plugin.jdk.executor.relevant.wrapper.RunnableOrCallableWrapper;
 
 public class RunnableOrCallableInstrumentation extends ClassInstanceMethodsEnhancePluginDefine {
     private static final String ENHANCE_CLASS = "org.apache.skywalking.apm.plugin.jdk.executor.relevant.RunnableOrCallableWrapper";
