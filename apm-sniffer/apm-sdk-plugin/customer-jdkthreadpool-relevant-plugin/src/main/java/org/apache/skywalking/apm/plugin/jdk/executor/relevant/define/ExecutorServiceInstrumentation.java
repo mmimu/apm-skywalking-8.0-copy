@@ -1,4 +1,4 @@
-package org.apache.skywalking.jdk.threadpool.relevant.define;
+package org.apache.skywalking.apm.plugin.jdk.executor.relevant.define;
 
 import net.bytebuddy.description.method.MethodDescription;
 import net.bytebuddy.matcher.ElementMatcher;
@@ -20,7 +20,7 @@ public class ExecutorServiceInstrumentation extends ClassInstanceMethodsEnhanceP
     private static final String ENHANCE_CLASS = "java.util.concurrent.ExecutorService";
     private static final String ENHANCE_EXECUTE_METHOD = "execute";
     private static final String ENHANCE_SUBMIT_METHOD = "submit";
-    private static final String INTERCEPTOR_CLASS = "org.apache.skywalking.jdk.threadpool.relevant.ExecutorServiceInterceptor";
+    private static final String INTERCEPTOR_CLASS = "org.apache.skywalking.apm.plugin.jdk.executor.relevant.ExecutorServiceInterceptor";
 
     @Override
     protected ClassMatch enhanceClass() {

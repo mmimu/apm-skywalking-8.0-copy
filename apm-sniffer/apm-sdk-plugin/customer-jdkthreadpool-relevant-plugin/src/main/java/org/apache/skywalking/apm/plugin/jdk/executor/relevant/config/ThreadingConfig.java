@@ -16,7 +16,7 @@
  *
  */
 
-package org.apache.skywalking.jdk.threadpool.relevant.config;
+package org.apache.skywalking.apm.plugin.jdk.executor.relevant.config;
 
 import org.apache.skywalking.apm.agent.core.conf.Config;
 import org.apache.skywalking.apm.agent.core.logging.api.ILog;

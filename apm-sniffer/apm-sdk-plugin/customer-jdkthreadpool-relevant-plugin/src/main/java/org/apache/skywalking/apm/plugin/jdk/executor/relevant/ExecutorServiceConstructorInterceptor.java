@@ -1,4 +1,4 @@
-package org.apache.skywalking.jdk.threadpool.relevant;
+package org.apache.skywalking.apm.plugin.jdk.executor.relevant;
 
 import org.apache.skywalking.apm.agent.core.context.ContextManager;
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.EnhancedInstance;

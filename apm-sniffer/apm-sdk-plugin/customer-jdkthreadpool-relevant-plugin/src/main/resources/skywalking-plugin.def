@@ -1,2 +1,2 @@
-customer-thread-pooling=org.apache.skywalking.jdk.threadpool.relevant.define.ExecutorServiceInstrumentation
-customer-thread-pooling=org.apache.skywalking.jdk.threadpool.relevant.define.RunnableOrCallableInstrumentation
+customer-thread-pooling=org.apache.skywalking.apm.plugin.jdk.executor.relevant.config.ExecutorServiceInstrumentation
+customer-thread-pooling=org.apache.skywalking.apm.plugin.jdk.executor.relevant.define.RunnableOrCallableInstrumentation

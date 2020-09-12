@@ -1,4 +1,4 @@
-package org.apache.skywalking.jdk.threadpool.relevant.define;
+package org.apache.skywalking.apm.plugin.jdk.executor.relevant.define;
 
 import net.bytebuddy.description.method.MethodDescription;
 import net.bytebuddy.matcher.ElementMatcher;
@@ -8,14 +8,14 @@ import org.apache.skywalking.apm.agent.core.plugin.interceptor.InstanceMethodsIn
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.ClassInstanceMethodsEnhancePluginDefine;
 import org.apache.skywalking.apm.agent.core.plugin.match.ClassMatch;
 import org.apache.skywalking.apm.agent.core.plugin.match.NameMatch;
-import org.apache.skywalking.jdk.threadpool.relevant.wrapper.RunnableOrCallableWrapper;
+import org.apache.skywalking.apm.plugin.jdk.executor.relevant.RunnableOrCallableWrapper;
 
 public class RunnableOrCallableInstrumentation extends ClassInstanceMethodsEnhancePluginDefine {
-    private static final String ENHANCE_CLASS = "org.apache.skywalking.jdk.threadpool.relevant.wrapper.RunnableOrCallableWrapper";
+    private static final String ENHANCE_CLASS = "org.apache.skywalking.apm.plugin.jdk.executor.relevant.RunnableOrCallableWrapper";
     private static final String ENHANCE_RUN_METHOD = "run";
     private static final String ENHANCE_CALL_METHOD = "call";
-    private static final String INTERCEPTOR_CLASS = "org.apache.skywalking.jdk.threadpool.relevant.RunnableOrCallableWrapperInterceptor";
-    private static final String CONSTRUCTOR_CLASS = "org.apache.skywalking.jdk.threadpool.relevant.ExecutorServiceConstructorInterceptor";
+    private static final String INTERCEPTOR_CLASS = "org.apache.skywalking.apm.plugin.jdk.executor.relevant.RunnableOrCallableWrapperInterceptor";
+    private static final String CONSTRUCTOR_CLASS = "org.apache.skywalking.apm.plugin.jdk.executor.relevant.ExecutorServiceConstructorInterceptor";
 
     @Override
     protected ClassMatch enhanceClass() {
