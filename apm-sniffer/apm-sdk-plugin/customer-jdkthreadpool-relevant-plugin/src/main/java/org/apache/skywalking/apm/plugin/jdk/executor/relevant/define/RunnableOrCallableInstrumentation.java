@@ -11,7 +11,7 @@ import org.apache.skywalking.apm.agent.core.plugin.match.NameMatch;
 import org.apache.skywalking.apm.plugin.jdk.executor.relevant.wrapper.RunnableOrCallableWrapper;
 
 public class RunnableOrCallableInstrumentation extends ClassInstanceMethodsEnhancePluginDefine {
-    private static final String ENHANCE_CLASS = "org.apache.skywalking.apm.plugin.jdk.executor.relevant.RunnableOrCallableWrapper";
+    private static final String ENHANCE_CLASS = "org.apache.skywalking.apm.plugin.jdk.executor.relevant.wrapper.RunnableOrCallableWrapper";
     private static final String ENHANCE_RUN_METHOD = "run";
     private static final String ENHANCE_CALL_METHOD = "call";
     private static final String INTERCEPTOR_CLASS = "org.apache.skywalking.apm.plugin.jdk.executor.relevant.RunnableOrCallableWrapperInterceptor";
