@@ -8,7 +8,11 @@ import org.apache.skywalking.apm.agent.core.plugin.interceptor.InstanceMethodsIn
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.StaticMethodsInterceptPoint;
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.ClassInstanceMethodsEnhancePluginDefine;
 import org.apache.skywalking.apm.agent.core.plugin.match.ClassMatch;
+import org.apache.skywalking.apm.agent.core.plugin.match.HierarchyMatch;
+import org.apache.skywalking.apm.agent.core.plugin.match.IndirectMatch;
 import org.apache.skywalking.apm.agent.core.plugin.match.NameMatch;
+import org.apache.skywalking.apm.agent.core.plugin.match.logical.LogicalMatchOperation;
+import org.apache.skywalking.apm.plugin.jdk.executor.relevant.config.ThreadingConfig;
 import org.apache.skywalking.apm.plugin.jdk.executor.relevant.wrapper.RunnableOrCallableWrapper;
 
 public class RunnableOrCallableInstrumentation extends ClassInstanceMethodsEnhancePluginDefine {
@@ -20,7 +24,11 @@ public class RunnableOrCallableInstrumentation extends ClassInstanceMethodsEnhan
 
     @Override
     protected ClassMatch enhanceClass() {
-        return NameMatch.byName(ENHANCE_CLASS);
+        IndirectMatch indirectMatch = ThreadingConfig.prefixesMatchesForJdkThreading();
+        if (indirectMatch == null) {
+            return null;
+        }
+        return LogicalMatchOperation.and(HierarchyMatch.byHierarchyMatch(ENHANCE_CLASS));
     }
 
     @Override
