@@ -24,11 +24,7 @@ public class RunnableOrCallableInstrumentation extends ClassInstanceMethodsEnhan
 
     @Override
     protected ClassMatch enhanceClass() {
-        IndirectMatch indirectMatch = ThreadingConfig.prefixesMatchesForJdkThreading();
-        if (indirectMatch == null) {
-            return null;
-        }
-        return LogicalMatchOperation.and(HierarchyMatch.byHierarchyMatch(ENHANCE_CLASS));
+        return NameMatch.byName(ENHANCE_CLASS);
     }
 
     @Override
