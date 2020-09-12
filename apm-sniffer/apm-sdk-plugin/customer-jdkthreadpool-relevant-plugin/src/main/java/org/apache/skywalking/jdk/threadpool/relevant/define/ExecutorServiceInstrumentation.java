@@ -10,10 +10,11 @@ import org.apache.skywalking.apm.agent.core.plugin.match.ClassMatch;
 import org.apache.skywalking.apm.agent.core.plugin.match.NameMatch;
 
 
-public class ThreadPoolInstrumentation extends ClassInstanceMethodsEnhancePluginDefine {
-    private static final String ENHANCE_CLASS = "java.util.concurrent.ThreadPoolExecutor";
+public class ExecutorServiceInstrumentation extends ClassInstanceMethodsEnhancePluginDefine {
+    private static final String ENHANCE_CLASS = "java.util.concurrent.ExecutorService";
     private static final String ENHANCE_EXECUTE_METHOD = "execute";
-    private static final String INTERCEPTOR_CLASS = "org.apache.skywalking.jdk.threadpool.relevant.ThreadPoolRunnableInterceptor";
+    private static final String ENHANCE_SUBMIT_METHOD = "submit";
+    private static final String INTERCEPTOR_CLASS = "org.apache.skywalking.jdk.threadpool.relevant.ExecutorServiceInterceptor";
 
     @Override
     protected ClassMatch enhanceClass() {
@@ -32,6 +33,22 @@ public class ThreadPoolInstrumentation extends ClassInstanceMethodsEnhancePlugin
                     @Override
                     public ElementMatcher<MethodDescription> getMethodsMatcher() {
                         return ElementMatchers.named(ENHANCE_EXECUTE_METHOD);
+                    }
+
+                    @Override
+                    public String getMethodsInterceptor() {
+                        return INTERCEPTOR_CLASS;
+                    }
+
+                    @Override
+                    public boolean isOverrideArgs() {
+                        return false;
+                    }
+                },
+                new InstanceMethodsInterceptPoint() {
+                    @Override
+                    public ElementMatcher<MethodDescription> getMethodsMatcher() {
+                        return ElementMatchers.named(ENHANCE_SUBMIT_METHOD);
                     }
 
                     @Override
