@@ -1,4 +1,4 @@
-package org.apache.skywalking.apm.plugin.jdk.executor.relevant.wrapper;
+package org.apache.skywalking.apm.plugin.custom.jdk.executor.wrapper;
 
 
 import java.util.concurrent.Callable;

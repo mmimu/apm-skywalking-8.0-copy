@@ -1,10 +1,10 @@
-package org.apache.skywalking.apm.plugin.jdk.executor.relevant;
+package org.apache.skywalking.apm.plugin.custom.jdk.executor;
 
 import org.apache.skywalking.apm.agent.core.context.ContextManager;
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.EnhancedInstance;
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.InstanceMethodsAroundInterceptor;
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.MethodInterceptResult;
-import org.apache.skywalking.apm.plugin.jdk.executor.relevant.wrapper.RunnableOrCallableWrapper;
+import org.apache.skywalking.apm.plugin.custom.jdk.executor.wrapper.RunnableOrCallableWrapper;
 
 import java.lang.reflect.Method;
 import java.util.concurrent.Callable;

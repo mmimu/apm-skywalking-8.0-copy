@@ -1,4 +1,4 @@
-package org.apache.skywalking.apm.plugin.jdk.executor.relevant;
+package org.apache.skywalking.apm.plugin.custom.jdk.executor;
 
 import org.apache.skywalking.apm.agent.core.context.ContextManager;
 import org.apache.skywalking.apm.agent.core.context.ContextSnapshot;

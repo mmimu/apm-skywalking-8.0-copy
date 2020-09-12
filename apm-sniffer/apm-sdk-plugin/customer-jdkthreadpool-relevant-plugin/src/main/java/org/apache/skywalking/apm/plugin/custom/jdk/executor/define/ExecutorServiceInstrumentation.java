@@ -1,4 +1,4 @@
-package org.apache.skywalking.apm.plugin.jdk.executor.relevant.define;
+package org.apache.skywalking.apm.plugin.custom.jdk.executor.define;
 
 import net.bytebuddy.description.method.MethodDescription;
 import net.bytebuddy.matcher.ElementMatcher;
@@ -11,7 +11,7 @@ import org.apache.skywalking.apm.agent.core.plugin.match.ClassMatch;
 import org.apache.skywalking.apm.agent.core.plugin.match.HierarchyMatch;
 import org.apache.skywalking.apm.agent.core.plugin.match.IndirectMatch;
 import org.apache.skywalking.apm.agent.core.plugin.match.logical.LogicalMatchOperation;
-import org.apache.skywalking.apm.plugin.jdk.executor.relevant.config.ThreadingConfig;
+import org.apache.skywalking.apm.plugin.custom.jdk.executor.config.ThreadingConfig;
 
 import java.util.concurrent.Callable;
 
