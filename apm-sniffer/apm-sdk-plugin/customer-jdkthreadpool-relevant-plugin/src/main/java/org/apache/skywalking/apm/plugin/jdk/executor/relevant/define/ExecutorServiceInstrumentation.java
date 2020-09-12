@@ -13,6 +13,8 @@ import org.apache.skywalking.apm.agent.core.plugin.match.IndirectMatch;
 import org.apache.skywalking.apm.agent.core.plugin.match.logical.LogicalMatchOperation;
 import org.apache.skywalking.apm.plugin.jdk.executor.relevant.config.ThreadingConfig;
 
+import java.util.concurrent.Callable;
+
 public class ExecutorServiceInstrumentation extends ClassInstanceMethodsEnhancePluginDefine {
     private static final String ENHANCE_CLASS = "java.util.concurrent.ExecutorService";
     private static final String ENHANCE_EXECUTE_METHOD = "execute";
@@ -49,7 +51,7 @@ public class ExecutorServiceInstrumentation extends ClassInstanceMethodsEnhanceP
                 new InstanceMethodsInterceptPoint() {
                     @Override
                     public ElementMatcher<MethodDescription> getMethodsMatcher() {
-                        return ElementMatchers.named(ENHANCE_EXECUTE_METHOD).and(ElementMatchers.takesArguments(0));
+                        return ElementMatchers.named(ENHANCE_EXECUTE_METHOD).and(ElementMatchers.takesArguments(Runnable.class));
                     }
 
                     @Override
@@ -65,7 +67,7 @@ public class ExecutorServiceInstrumentation extends ClassInstanceMethodsEnhanceP
                 new InstanceMethodsInterceptPoint() {
                     @Override
                     public ElementMatcher<MethodDescription> getMethodsMatcher() {
-                        return ElementMatchers.named(ENHANCE_SUBMIT_METHOD).and(ElementMatchers.takesArguments(0));
+                        return ElementMatchers.named(ENHANCE_SUBMIT_METHOD).and(ElementMatchers.takesArguments(Callable.class));
                     }
 
                     @Override

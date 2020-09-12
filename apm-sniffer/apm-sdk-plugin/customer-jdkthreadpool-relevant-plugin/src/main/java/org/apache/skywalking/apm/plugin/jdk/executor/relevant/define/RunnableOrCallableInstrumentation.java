@@ -54,7 +54,7 @@ public class RunnableOrCallableInstrumentation extends ClassInstanceMethodsEnhan
                 new InstanceMethodsInterceptPoint() {
                     @Override
                     public ElementMatcher<MethodDescription> getMethodsMatcher() {
-                        return ElementMatchers.named(ENHANCE_RUN_METHOD).and(ElementMatchers.takesArguments(RunnableOrCallableWrapper.class));
+                        return ElementMatchers.named(ENHANCE_RUN_METHOD).and(ElementMatchers.takesArguments(0));
                     }
 
                     @Override
@@ -70,7 +70,7 @@ public class RunnableOrCallableInstrumentation extends ClassInstanceMethodsEnhan
                 new InstanceMethodsInterceptPoint() {
                     @Override
                     public ElementMatcher<MethodDescription> getMethodsMatcher() {
-                        return ElementMatchers.named(ENHANCE_CALL_METHOD).and(ElementMatchers.takesArguments(RunnableOrCallableWrapper.class));
+                        return ElementMatchers.named(ENHANCE_CALL_METHOD).and(ElementMatchers.takesArguments(0));
                     }
 
                     @Override
@@ -86,13 +86,4 @@ public class RunnableOrCallableInstrumentation extends ClassInstanceMethodsEnhan
         };
     }
 
-    @Override
-    public StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
-        return new StaticMethodsInterceptPoint[0];
-    }
-
-    @Override
-    public boolean isBootstrapInstrumentation() {
-        return true;
-    }
 }
