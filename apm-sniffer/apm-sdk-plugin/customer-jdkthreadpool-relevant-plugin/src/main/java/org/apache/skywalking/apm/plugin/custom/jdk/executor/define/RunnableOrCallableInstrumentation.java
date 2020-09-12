@@ -10,11 +10,11 @@ import org.apache.skywalking.apm.agent.core.plugin.match.ClassMatch;
 import org.apache.skywalking.apm.agent.core.plugin.match.NameMatch;
 
 public class RunnableOrCallableInstrumentation extends ClassInstanceMethodsEnhancePluginDefine {
-    private static final String ENHANCE_CLASS = "org.apache.skywalking.apm.plugin.jdk.executor.relevant.wrapper.RunnableOrCallableWrapper";
+    private static final String ENHANCE_CLASS = "org.apache.skywalking.apm.plugin.custom.jdk.executor.wrapper.RunnableOrCallableWrapper";
     private static final String ENHANCE_RUN_METHOD = "run";
     private static final String ENHANCE_CALL_METHOD = "call";
-    private static final String INTERCEPTOR_CLASS = "org.apache.skywalking.apm.plugin.jdk.executor.relevant.RunnableOrCallableWrapperInterceptor";
-    private static final String CONSTRUCTOR_CLASS = "org.apache.skywalking.apm.plugin.jdk.executor.relevant.ExecutorServiceConstructorInterceptor";
+    private static final String INTERCEPTOR_CLASS = "org.apache.skywalking.apm.plugin.custom.jdk.executor.RunnableOrCallableWrapperInterceptor";
+    private static final String CONSTRUCTOR_CLASS = "org.apache.skywalking.apm.plugin.custom.jdk.executor.RunnableOrCallableConstructorInterceptor";
 
     @Override
     protected ClassMatch enhanceClass() {

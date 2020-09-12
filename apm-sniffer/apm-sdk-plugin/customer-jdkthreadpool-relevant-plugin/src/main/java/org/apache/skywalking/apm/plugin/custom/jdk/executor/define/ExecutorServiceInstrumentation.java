@@ -19,7 +19,7 @@ public class ExecutorServiceInstrumentation extends ClassInstanceMethodsEnhanceP
     private static final String ENHANCE_CLASS = "java.util.concurrent.ExecutorService";
     private static final String ENHANCE_EXECUTE_METHOD = "execute";
     private static final String ENHANCE_SUBMIT_METHOD = "submit";
-    private static final String INTERCEPTOR_CLASS = "org.apache.skywalking.apm.plugin.jdk.executor.relevant.ExecutorServiceInterceptor";
+    private static final String INTERCEPTOR_CLASS = "org.apache.skywalking.apm.plugin.custom.jdk.executor.ExecutorServiceInterceptor";
 
     @Override
     protected ClassMatch enhanceClass() {
