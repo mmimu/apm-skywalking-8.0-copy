@@ -52,7 +52,7 @@ public class ExecutorServiceInstrumentation extends ClassInstanceMethodsEnhanceP
                 new InstanceMethodsInterceptPoint() {
                     @Override
                     public ElementMatcher<MethodDescription> getMethodsMatcher() {
-                        return ElementMatchers.named(ENHANCE_EXECUTE_METHOD).and(ElementMatchers.takesArguments(Runnable.class));
+                        return ElementMatchers.named(ENHANCE_EXECUTE_METHOD).and(ElementMatchers.takesArguments(0));
                     }
 
                     @Override
@@ -62,13 +62,13 @@ public class ExecutorServiceInstrumentation extends ClassInstanceMethodsEnhanceP
 
                     @Override
                     public boolean isOverrideArgs() {
-                        return true;
+                        return false;
                     }
                 },
                 new InstanceMethodsInterceptPoint() {
                     @Override
                     public ElementMatcher<MethodDescription> getMethodsMatcher() {
-                        return ElementMatchers.named(ENHANCE_SUBMIT_METHOD).and(ElementMatchers.takesArguments(Callable.class));
+                        return ElementMatchers.named(ENHANCE_SUBMIT_METHOD).and(ElementMatchers.takesArguments(0));
                     }
 
                     @Override
@@ -78,7 +78,7 @@ public class ExecutorServiceInstrumentation extends ClassInstanceMethodsEnhanceP
 
                     @Override
                     public boolean isOverrideArgs() {
-                        return true;
+                        return false;
                     }
                 }
         };
