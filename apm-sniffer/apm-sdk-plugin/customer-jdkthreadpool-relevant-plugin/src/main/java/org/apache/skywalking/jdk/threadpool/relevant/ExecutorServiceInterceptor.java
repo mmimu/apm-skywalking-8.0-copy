@@ -4,8 +4,7 @@ import org.apache.skywalking.apm.agent.core.context.ContextManager;
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.EnhancedInstance;
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.InstanceMethodsAroundInterceptor;
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.MethodInterceptResult;
-import org.apache.skywalking.jdk.threadpool.relevant.wrapper.CallableWrapper;
-import org.apache.skywalking.jdk.threadpool.relevant.wrapper.RunnableWrapper;
+import org.apache.skywalking.jdk.threadpool.relevant.wrapper.RunnableOrCallableWrapper;
 
 import java.lang.reflect.Method;
 import java.util.concurrent.Callable;
@@ -17,11 +16,13 @@ public class ExecutorServiceInterceptor implements InstanceMethodsAroundIntercep
             return;
         }
         Object parameter = allArguments[0];
-        if (parameter instanceof Runnable) {
-            allArguments[0] = new RunnableWrapper((Runnable) parameter);
-        }
-        if (parameter instanceof Callable) {
-            allArguments[0] = new CallableWrapper((Callable) parameter);
+        if (!(parameter instanceof RunnableOrCallableWrapper)) {
+            if (parameter instanceof Runnable) {
+                allArguments[0] = new RunnableOrCallableWrapper((Runnable) parameter);
+            }
+            if (parameter instanceof Callable) {
+                allArguments[0] = new RunnableOrCallableWrapper((Callable) parameter);
+            }
         }
     }
 

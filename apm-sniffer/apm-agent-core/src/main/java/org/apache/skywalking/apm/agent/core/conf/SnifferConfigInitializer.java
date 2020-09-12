@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+
 import org.apache.skywalking.apm.agent.core.boot.AgentPackageNotFoundException;
 import org.apache.skywalking.apm.agent.core.boot.AgentPackagePath;
 import org.apache.skywalking.apm.agent.core.logging.api.ILog;
@@ -99,7 +100,6 @@ public class SnifferConfigInitializer {
             Config.Plugin.PEER_MAX_LENGTH = 200;
         }
 
-        IS_INIT_COMPLETED = true;
     }
 
     private static void overrideConfigByAgentOptions(String agentOptions) throws IllegalAccessException {
@@ -140,6 +140,10 @@ public class SnifferConfigInitializer {
         terms.add(currentTerm.toString());
         options.add(terms);
         return options;
+    }
+
+    public static void initCompleted() {
+        IS_INIT_COMPLETED = true;
     }
 
     public static boolean isInitCompleted() {

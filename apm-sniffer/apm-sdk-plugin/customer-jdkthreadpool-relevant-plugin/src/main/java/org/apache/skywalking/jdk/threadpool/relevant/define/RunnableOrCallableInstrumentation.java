@@ -5,45 +5,38 @@ import net.bytebuddy.matcher.ElementMatcher;
 import net.bytebuddy.matcher.ElementMatchers;
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.ConstructorInterceptPoint;
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.InstanceMethodsInterceptPoint;
-import org.apache.skywalking.apm.agent.core.plugin.interceptor.StaticMethodsInterceptPoint;
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.ClassInstanceMethodsEnhancePluginDefine;
 import org.apache.skywalking.apm.agent.core.plugin.match.ClassMatch;
-import org.apache.skywalking.apm.agent.core.plugin.match.HierarchyMatch;
-import org.apache.skywalking.apm.agent.core.plugin.match.IndirectMatch;
-import org.apache.skywalking.apm.agent.core.plugin.match.logical.LogicalMatchOperation;
-import org.apache.skywalking.jdk.threadpool.relevant.config.ThreadingConfig;
+import org.apache.skywalking.apm.agent.core.plugin.match.NameMatch;
+import org.apache.skywalking.jdk.threadpool.relevant.wrapper.RunnableOrCallableWrapper;
 
-import java.util.concurrent.Callable;
-
-
-public class ExecutorServiceInstrumentation extends ClassInstanceMethodsEnhancePluginDefine {
-    private static final String ENHANCE_CLASS = "java.util.concurrent.ExecutorService";
-    private static final String ENHANCE_EXECUTE_METHOD = "execute";
-    private static final String ENHANCE_SUBMIT_METHOD = "submit";
-    private static final String INTERCEPTOR_CLASS = "org.apache.skywalking.jdk.threadpool.relevant.ExecutorServiceInterceptor";
+public class RunnableOrCallableInstrumentation extends ClassInstanceMethodsEnhancePluginDefine {
+    private static final String ENHANCE_CLASS = "org.apache.skywalking.jdk.threadpool.relevant.wrapper.RunnableOrCallableWrapper";
+    private static final String ENHANCE_RUN_METHOD = "run";
+    private static final String ENHANCE_CALL_METHOD = "call";
+    private static final String INTERCEPTOR_CLASS = "org.apache.skywalking.jdk.threadpool.relevant.RunnableOrCallableWrapperInterceptor";
+    private static final String CONSTRUCTOR_CLASS = "org.apache.skywalking.jdk.threadpool.relevant.ExecutorServiceConstructorInterceptor";
 
     @Override
     protected ClassMatch enhanceClass() {
-        IndirectMatch indirectMatch = ThreadingConfig.prefixesMatchesForJdkThreading();
-        if (indirectMatch == null) {
-            return null;
-        }
-        return LogicalMatchOperation.and(HierarchyMatch.byHierarchyMatch(ENHANCE_CLASS));
+        return NameMatch.byName(ENHANCE_CLASS);
     }
 
     @Override
     public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
-        return new ConstructorInterceptPoint[0];
-    }
+        return new ConstructorInterceptPoint[]{
+                new ConstructorInterceptPoint() {
+                    @Override
+                    public ElementMatcher<MethodDescription> getConstructorMatcher() {
+                        return ElementMatchers.any();
+                    }
 
-    @Override
-    public boolean isBootstrapInstrumentation() {
-        return true;
-    }
-
-    @Override
-    public StaticMethodsInterceptPoint[] getStaticMethodsInterceptPoints() {
-        return new StaticMethodsInterceptPoint[0];
+                    @Override
+                    public String getConstructorInterceptor() {
+                        return CONSTRUCTOR_CLASS;
+                    }
+                }
+        };
     }
 
     @Override
@@ -52,7 +45,7 @@ public class ExecutorServiceInstrumentation extends ClassInstanceMethodsEnhanceP
                 new InstanceMethodsInterceptPoint() {
                     @Override
                     public ElementMatcher<MethodDescription> getMethodsMatcher() {
-                        return ElementMatchers.named(ENHANCE_EXECUTE_METHOD).and(ElementMatchers.takesArguments(Runnable.class));
+                        return ElementMatchers.named(ENHANCE_RUN_METHOD).and(ElementMatchers.takesArguments(RunnableOrCallableWrapper.class));
                     }
 
                     @Override
@@ -62,13 +55,13 @@ public class ExecutorServiceInstrumentation extends ClassInstanceMethodsEnhanceP
 
                     @Override
                     public boolean isOverrideArgs() {
-                        return true;
+                        return false;
                     }
                 },
                 new InstanceMethodsInterceptPoint() {
                     @Override
                     public ElementMatcher<MethodDescription> getMethodsMatcher() {
-                        return ElementMatchers.named(ENHANCE_SUBMIT_METHOD).and(ElementMatchers.takesArguments(Callable.class));
+                        return ElementMatchers.named(ENHANCE_CALL_METHOD).and(ElementMatchers.takesArguments(RunnableOrCallableWrapper.class));
                     }
 
                     @Override
@@ -78,11 +71,9 @@ public class ExecutorServiceInstrumentation extends ClassInstanceMethodsEnhanceP
 
                     @Override
                     public boolean isOverrideArgs() {
-                        return true;
+                        return false;
                     }
                 }
         };
-
-
     }
 }

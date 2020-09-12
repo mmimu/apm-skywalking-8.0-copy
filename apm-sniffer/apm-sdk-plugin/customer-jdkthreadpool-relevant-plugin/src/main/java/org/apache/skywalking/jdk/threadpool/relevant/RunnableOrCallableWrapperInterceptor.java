@@ -32,7 +32,9 @@ public class RunnableOrCallableWrapperInterceptor implements InstanceMethodsArou
 
     @Override
     public void handleMethodException(EnhancedInstance objInst, Method method, Object[] allArguments, Class<?>[] argumentsTypes, Throwable t) {
-
+        if (ContextManager.isActive()) {
+            ContextManager.activeSpan().errorOccurred().log(t);
+        }
     }
 
     private String generateOperationName(final EnhancedInstance objInst, final Method method) {
