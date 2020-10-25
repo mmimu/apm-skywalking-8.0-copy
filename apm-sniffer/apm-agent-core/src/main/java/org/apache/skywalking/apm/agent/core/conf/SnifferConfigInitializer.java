@@ -99,7 +99,6 @@ public class SnifferConfigInitializer {
             Config.Plugin.PEER_MAX_LENGTH = 200;
         }
 
-        IS_INIT_COMPLETED = true;
     }
 
     private static void overrideConfigByAgentOptions(String agentOptions) throws IllegalAccessException {
@@ -141,6 +140,7 @@ public class SnifferConfigInitializer {
         options.add(terms);
         return options;
     }
+
 
     public static boolean isInitCompleted() {
         return IS_INIT_COMPLETED;

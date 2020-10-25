@@ -90,6 +90,11 @@
         <module>avro-plugin</module>
         <module>finagle-6.25.x-plugin</module>
         <module>mariadb-2.x-plugin</module>
+<<<<<<< HEAD
+=======
+        <module>simple-httpserver-2.x-plugin</module>
+        <module>customer-jdkthreadpool-relevant-plugin</module>
+>>>>>>> d1da1d6d98c8b41a51b013a8a3a99d98d3663b2a
     </modules>
     <packaging>pom</packaging>
 
